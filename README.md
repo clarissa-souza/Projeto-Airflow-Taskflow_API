@@ -1,24 +1,28 @@
-# Projeto-Extensao-Airflow
+# Projeto-Airflow-Taskflow API para o Censo Escolar dos anos de 2018, 2019, 2020 e 2021
 
-Projeto para conclusão do curso de extensão de Airflow da SoulCode https://soulcodeacademy.org/
+Escopo do projeto: Extrair do Censo Escolar do período especificado os dados de Totais de Vagas e totais de Inscritos por Ano, Região, UF e Grau Acadêmico. 
+    Os arquivos originais podem ser obtidos em: https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados/censo-escolar
 
-Objetivo: Fazer o processo de ETL na DAG do Airflow
+Objetivo do Projeto: Fazer o processo de ETL utilizando o Taskflow API do Airflow
 
-    1 - Fazer a extração dos dados para uma pasta local
+    1 - Fazer o download dos dados para uma pasta local
   
     2 - Fazer o tratamento dos dados na própria DAG
   
-    3 - Gravar o arquivo tratado em json e em csv
+    3 - Gravar o arquivo tratado em json
   
-    4 - Executar o Airflow a partir de um container local
+    4 - Executar o Airflow a partir de um container 
   
-    5 - Executar o Airflow na plataforma Google Cloud 
 
-Dataset escolhido: Dados do Censo escolar do INEP dos anos de 2018, 2019, 2020 e 2021.
+Execução do projeto:
 
-   1 - Os arquivos originais podem ser obtidos em: https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados/censo-escolar
-  
-   2 - Motivação: Ilustrar a extração de colunas específicas de um arquivo compactado. Nesse caso não será necessário descompactar o arquivo na máquina local. 
-  
-  
-Escopo: No final do tratamento teremos dois arquivos gravados na pasta local (um no formato CSV e outro no formato json). O arquivo deve ser no formato tabela e conter as seguintes colunas: Ano, Regiao, UF, Grau Escolaridade, Quantidade Total de Vagas, Quantidade Total de Inscritos.
+    1 - Preparação do ambiente: como o projeto exige que seja gravado o arquivo original e tratado em uma pasta local, foi necessário criar os volumes do docker-compose.yaml
+        - ./dadosOriginais:/opt/airflow/dadosOriginais
+        - ./dadosTratados:/opt/airflow/dadosTratados
+    
+    2 - Os arquivos originais estão compactados então foi necessário verificar qual arquivo tem as informações do projeto. O objetivo é não ter que descompactar todos os arquivos na pasta local. Vou utilizar apenas o arquivo que tem a informação que preciso. Este processo pode ser verificado no arquivo Extensao_airflow.ipynb
+    
+    3 - Depois de identificado o arquivo, selecionei apenas as colunas que foram solicitadas para compor o arquivo final. Este processo pode ser verificado no arquivo Extensao_airflow.ipynb
+    
+    4 - O processo de ETL na Dag pode ser verificado no arquivo Airflow_taskflow_api.ipynb
+    
